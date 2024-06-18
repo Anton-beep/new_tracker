@@ -6,15 +6,20 @@
   transition: color 0.1s linear;
 }
 
+:root {
+  --background-light: #ffffff;
+  --background-dark: #000000;
+}
+
 .light-theme {
-  --background: #ffffff;
+  --background: var(--background-light);
   --background-emphasis: #D7D7D7;
 
   --text-primary: #000000;
 }
 
 .dark-theme {
-  --background: #000000;
+  --background: var(--background-dark);
   --background-emphasis: #282828;
 
   --text-primary: #ffffff;
@@ -23,7 +28,7 @@
 body {
   background-color: var(--background);
   color: var(--text-primary);
-  transition: background-color 5s linear;
+  transition: background-color 10s linear;
 }
 
 .vertical-center {

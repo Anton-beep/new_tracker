@@ -1,24 +1,24 @@
-import {useTheme} from '../hooks/use-theme';
-import {Sun} from './icons/sun';
-import {useEffect, useState} from "react";
-import GrowingCircle from "./growing-cricle.tsx";
+import {useContext, useEffect} from "react";
+import {Theme} from "../contexts/theme";
+import {GrowingCircleCoords} from "../contexts/growing-circle-coords";
+import {Sun} from "./icons/sun";
+import {Moon} from "./icons/moon";
 
-const ThemeSwitch = () => {
-    const {toggleTheme} = useTheme();
+export default function ThemeSwitch() {
+    const {theme, setTheme} = useContext(Theme);
+    const {setCoords} = useContext(GrowingCircleCoords);
 
-    const handleClick = () => {
-        toggleTheme();
-    };
+    useEffect(() => {
+        document.body.className = theme + "-theme";
+    }, [theme]);
 
     return (
-        <>
-            <div style={{zIndex: 10}}>
-                <button onClick={handleClick} style={{zIndex: 10}}>
-                    <Sun fill={"var(--background-emphasis)"} width={24} height={24}/>
-                </button>
-            </div>
-        </>
-    );
+        <button onClick={(event) => {
+            setCoords({x: event.clientX, y: event.clientY, draw: true});
+            setTheme(theme === "light" ? "dark" : "light");
+        }}>
+            {theme == "dark" ? <Sun fill={"var(--background)"} width={24} height={24}/> :
+                <Moon fill={"var(--background)"} width={24} height={24}/>}
+        </button>
+    )
 }
-
-export default ThemeSwitch;
